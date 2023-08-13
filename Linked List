@@ -1,0 +1,109 @@
+class node:
+    def __init__(self, data=None):
+        self.data = data
+        self.nextnode = None
+
+class SLinkedList:
+    def __init__(self):
+        self.headnode = None
+    
+    def PrintList (self):
+        list1 = self.headnode
+        while list1 is not None:
+            print (list1.data)
+            list1 = list1.nextnode
+        print("")
+            
+    def InsertAtLast (self, value):
+        list1 = self.headnode
+        newnode = node(value)
+        if list1 == None:
+            self.headnode = newnode
+        else:
+            while list1.nextnode is not None:
+                list1 = list1.nextnode
+            list1.nextnode = newnode
+    
+    def InsertAtBegining (self, value):
+        list1 = self.headnode
+        newnode = node (value)
+        if list1 == None:
+            self.headnode = newnode
+        else:
+            newnode.nextnode = self.headnode
+            self.headnode = newnode
+    
+    def InsertAtPosition (self, pos, value):
+        if pos < 1:
+            print ("Invalid Position !!!")
+            return
+        
+        list1 = self.headnode
+        newnode = node(value)
+        if list1 == None:
+            if pos > 1:
+                print ("Invalid position for empty linked list !!!")
+            else:
+                self.headnode = newnode
+        elif pos == 1:
+            newnode.nextnode = self.headnode
+            self.headnode = newnode
+            
+        else:
+            i = 0
+            prevnode = list1
+            for i in range (0, pos-1):
+                if list1 is not None:
+                    prevnode = list1
+                    list1 = list1.nextnode
+                else:
+                    print ("Invalid position for this Linked List !!!")
+                    return
+                
+            newnode.nextnode = list1
+            prevnode.nextnode = newnode
+
+    def Remove (self, value):
+        list1 = self.headnode
+        
+        if list1 == None:
+            print("This is already a Empty Linked List")
+        elif (list1.nextnode == None) and (list1.data != value):
+            print("Given node does not exist in Linked List")
+        elif (list1.data == value):
+            self.headnode = list1.nextnode
+        else:
+            prevnode = self.headnode
+            while (list1.data != value):
+                prevnode = list1
+                list1 = list1.nextnode
+                if list1 == None:
+                    break
+                    
+            if list1 == None:
+                print ("Given node does not exist in Linked List")
+            elif list1.nextnode == None:
+                prevnode.nextnode = None
+            else:
+                prevnode.nextnode = list1.nextnode
+                
+
+list = SLinkedList()
+
+list.headnode = node("Mon")
+e2 = node("Tue")
+e3 = node("Wed")
+e4 = node("Thu")
+
+list.headnode.nextnode = e2
+e2.nextnode = e3
+e3.nextnode = e4
+
+list.PrintList()
+
+list.Remove("Monee")
+list.PrintList()
+
+
+
+        
